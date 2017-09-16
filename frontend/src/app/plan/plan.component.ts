@@ -5,6 +5,14 @@ import {Connection} from "./connections/connection.interface";
 import {Router} from "@angular/router";
 import {Subject} from "rxjs/Subject";
 import {AuthService} from "../common/services/auth/auth.service";
+import {CheckinService} from "../common/services/checkin/checkin.service";
+import {Observable} from "rxjs/Observable";
+import "rxjs/add/Observable/from";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/mergeMap";
+import "rxjs/add/operator/mergeAll";
+import "rxjs/add/operator/toArray";
+import "rxjs/add/operator/do";
 
 @Component({
   selector: 'app-plan',
@@ -13,11 +21,12 @@ import {AuthService} from "../common/services/auth/auth.service";
 })
 export class PlanComponent implements OnInit {
   planForm: FormGroup;
+  choosenConnResults$: Observable<Connection[]>;
   connectionResults$: Subject<Connection[]> = new Subject();
   rankingArray = [];
   showNotification:boolean = false;
 
-  constructor(private connectionsService: ConnectionsService, private router: Router, private authService: AuthService) {
+  constructor(private connectionsService: ConnectionsService, private router: Router, private authService: AuthService, private checkinService: CheckinService) {
   }
 
   ngOnInit() {
@@ -25,6 +34,16 @@ export class PlanComponent implements OnInit {
       start: new FormControl('', [Validators.required]),
       end: new FormControl('', [Validators.required])
     });
+
+    this.choosenConnResults$ = this.checkinService.getChoosenRoutes()
+      .mergeMap(connections => connections)
+      .map((connection: Connection) => {
+        connection.ranking = Math.round(Math.round(connection.ranking*10)/2);
+        return Observable.from([connection]);
+      })
+      .mergeAll()
+      .toArray()
+      .do(console.log);
   }
 
   get startControl() {
@@ -70,5 +89,9 @@ export class PlanComponent implements OnInit {
 
   disableNotification() {
     this.showNotification = false;
+  }
+
+  checkin(connection: Connection) {
+
   }
 }

@@ -1,3 +1,22 @@
+<h2>Your choosen connections</h2>
+<table class="table" *ngIf="choosenConnResults$|async as choosenConnResults">
+  <thead>
+    <tr>
+      <th>From</th>
+      <th>Departure</th>
+      <th>To</th>
+      <th>Arrival</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let choosenConn of choosenConnResults; let i = index">
+      <td>{{choosenConn.fromDest}}</td>
+      <td>{{choosenConn.depart|date:'short'}}</td>
+      <td>{{choosenConn.toDest}}</td>
+      <td>{{choosenConn.arrival|date:'short'}}</td>
+    </tr>
+  </tbody>
+</table>
 <form [formGroup]="planForm">
   <div class="form-group">
     <label for="start">Starting Point</label>

@@ -14,7 +14,7 @@ export class AuthService {
     domain: 'travenas.eu.auth0.com',
     responseType: 'token id_token',
     audience: 'https://travenas.eu.auth0.com/userinfo',
-    redirectUri: environment.production ? 'http://travenas.com/login' : 'http://localhost:3000/login',
+    redirectUri: (environment.production === true) ? 'http://travenas.com/login' : 'http://localhost:3000/login',
     scope: 'openid profile'
   });
 
@@ -70,7 +70,7 @@ export class AuthService {
     this.isAuthenticated$.next(this.isAuthenticated());
 
     // Go back to the home route
-    this.auth0.logout({returnTo: environment.production ? 'http://travenas.com/logout' : 'http://localhost:3000/logout'});
+    this.auth0.logout({returnTo: (environment.production === true ) ? 'http://travenas.com/logout' : 'http://localhost:3000/logout'});
   }
 
   public isAuthenticated(): boolean {

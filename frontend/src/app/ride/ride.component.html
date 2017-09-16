@@ -5,10 +5,15 @@
   Your trip has ended. You have a new score of {{newScore}}. Keep collecting!
 </p>
 <div class="container">
-  <div class="col-sm-4"></div>
-  <div class="col-sm-4"></div>
+  <div class="col-sm-4">
+
+  </div>
+  <div class="col-sm-4">
+
+  </div>
   <div class="col-sm-4">
     <form [formGroup]="stationChatForm">
+      <h4>{{stationRoom}}</h4>
       <textarea class="form-control" name="stationMessages" id="stationMessages" formControlName="stationMessages" rows="5"></textarea>
       <div class="form-inline">
         <div class="form-group">
@@ -18,6 +23,7 @@
       </div>
     </form>
     <form [formGroup]="routeChatForm" style="margin-top: 3rem;">
+      <h4>{{routeRoom}}</h4>
       <textarea class="form-control" name="routeMessages" id="routeMessages" formControlName="routeMessages" rows="5"></textarea>
       <div class="form-inline">
         <div class="form-group">

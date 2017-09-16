@@ -63,4 +63,22 @@ router.post('/identify', function (req, res, next) {
     });
 });
 
+router.post('/choosen', function (req, res, next) {
+    var dataBody = req.body;
+    var sqlConnection = mysql.createConnection(config.mysqldb);
+
+    sqlConnection.connect(function (err) {
+        if (err) throw err;
+        console.log('MySQL-Connection successfully established...');
+
+        sqlConnection.query('SELECT * FROM connections' +
+            ' WHERE user = ? AND (depart >= ? OR arrival >= ?)',
+            [dataBody.userId, dataBody.time, dataBody.time], function (err, result) {
+                if (err) throw err;
+
+                res.send(result);
+            });
+    });
+});
+
 module.exports = router;
