@@ -6,10 +6,10 @@ var chat = express.Router();
 
 var chatRooms = new Map();
 const APP_ID = 'F5382E02-4083-4C36-99CC-E4181584CDD8';
-const CHAT_ROOM_ROUTE = 'ChatRoomRoute_';
-const CHAT_ROOM_ROUTE_URL = 'ChatRoomRouteUrl';
-const CHAT_ROOM_STATION = 'ChatRoomStation_';
-const CHAT_ROOM_STATION_URL = 'ChatRoomStationUrl';
+const CHAT_ROOM_ROUTE = 'Route_';
+const CHAT_ROOM_ROUTE_URL = 'RouteUrl';
+const CHAT_ROOM_STATION = 'Station_';
+const CHAT_ROOM_STATION_URL = 'StationUrl';
 
 const sb = new SendBird({'appId': APP_ID});
 
