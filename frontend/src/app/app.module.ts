@@ -14,6 +14,7 @@ import {PlanComponent} from './plan/plan.component';
 import {ConnectionsService} from "./plan/connections/connections.service";
 import {HttpClientModule} from "@angular/common/http";
 import {AuthGuard} from "./auth-guard.service";
+import {CheckinService} from "./common/services/checkin/checkin.service";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {AuthGuard} from "./auth-guard.service";
     AuthGuard,
     AuthService,
     ChatService,
-    ConnectionsService
+    ConnectionsService,
+    CheckinService
   ],
   bootstrap: [AppComponent]
 })

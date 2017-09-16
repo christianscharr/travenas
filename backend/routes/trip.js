@@ -57,12 +57,13 @@ router.post('/identify', function (req, res, next) {
         if (err) throw err;
         console.log('MySQL-Connection successfully established...');
 
-        sqlConnection.query('SELECT c.connectionid, c.depart, c.arrival, s.* FROM connections c, sections s' +
+        sqlConnection.query('SELECT s.route FROM connections c, sections s' +
             ' WHERE c.connectionid = s.connection AND c.user = ? AND (s.fromStation = ? OR s.toStation = ?) AND c.depart <= ? AND c.arrival >= ?',
             [dataBody.userId, dataBody.stationId, dataBody.stationId, dataBody.time, dataBody.time], function (err, result) {
             if (err) throw err;
 
             console.log(result);
+            res.send(result);
         });
     });
 });
