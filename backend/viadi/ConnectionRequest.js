@@ -10,18 +10,25 @@ request.perform = function (from, to) {
     var client = new Client();
 
     var args = {
-        parameters: { from: from, to: to },
-        headers: { 'API-Key': 'V0011960D51C-899C-4381-B6BB-FBA0CE202FC5' }
+        parameters: { from: encodeURIComponent(from), to: encodeURIComponent(to) },
+        headers: {
+            'API-Key': 'V0011960D51C-899C-4381-B6BB-FBA0CE202FC5',
+            'Accept-Language': "de"
+        }
     };
 
 
-
-    var p = new Promise(function (resolve) {
+    console.log("From: " + args.parameters.from + " To: " + args.parameters.to);
+    var p = new Promise(function (resolve, reject) {
         client.get('http://free.viapi.ch/v1/connection', args, function (data, response) {
             // parsed response body as js object
-            //console.log(data);
+            console.log(data);
             //var transformed = transformResponseData(data);
-            resolve(data);
+            if (data.statusCode) {
+                reject(data);
+            } else {
+                resolve(data);
+            }
             // raw response
             //console.log(response);
         });
