@@ -1,3 +1,19 @@
+<video id="video" width="600" height="400" style="border: 1px solid gray"></video>
+<div>
+  <button type="button" class="btn btn-primary"  id="scanButton">Scan</button>
+  <button type="button" class="btn btn-primary" id="resetButton">Reset</button>
+</div>
+<div id="sourceSelectPanel" style="display:none">
+  <label for="sourceSelect">Change video source:</label>
+  <select id="sourceSelect" style="max-width:400px">
+  </select>
+</div>
+
+<label>Result:</label>
+<blockquote>
+  <p id="result"></p>
+</blockquote>
+
 <form [formGroup]="checkinForm">
   <div class="form-group">
     <label for="station">Station ID</label>
