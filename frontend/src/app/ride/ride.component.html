@@ -1,3 +1,8 @@
-<p>
-  ride works!
-</p>
+<form [formGroup]="stationChatForm">
+  <textarea name="stationMessages" id="stationMessages" formControlName="stationMessages"></textarea>
+  <div class="form-group">
+    <label for="stationMessage">New message</label>
+    <input type="text" class="form-control" formControlName="stationMessage" id="stationMessage" placeholder="Enter your message">
+  </div>
+  <button type="button" class="btn btn-primary" (click)="sendStationMessage()">Send Message</button>
+</form>

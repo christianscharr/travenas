@@ -9,7 +9,6 @@ import {LogoutComponent} from './logout/logout.component';
 import {CheckinComponent} from './checkin/checkin.component';
 import {CheckoutComponent} from './checkout/checkout.component';
 import {ReactiveFormsModule} from "@angular/forms";
-import {ChatService} from "./common/services/chat/chat.service";
 import {PlanComponent} from './plan/plan.component';
 import {ConnectionsService} from "./plan/connections/connections.service";
 import {HttpClientModule} from "@angular/common/http";
@@ -38,7 +37,6 @@ import {RideComponent} from './ride/ride.component';
   providers: [
     AuthGuard,
     AuthService,
-    ChatService,
     ConnectionsService,
     CheckinService
   ],
