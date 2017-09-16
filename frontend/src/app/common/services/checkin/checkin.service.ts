@@ -19,6 +19,7 @@ export class CheckinService {
     let params = new HttpParams();
     params = params.append("stationId", stationId);
     params = params.append("routeId", routeId);
+    params = params.append("userId", this.authService.userProfile$.getValue().sub);
 
     return this.httpClient.get('/api/checkin', {
       params: params
