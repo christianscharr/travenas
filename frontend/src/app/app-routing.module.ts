@@ -8,7 +8,6 @@ import {CheckinComponent} from "./checkin/checkin.component";
 import {CheckoutComponent} from "./checkout/checkout.component";
 import {PlanComponent} from "./plan/plan.component";
 import {AuthGuard} from "./auth-guard.service";
-import {RideComponent} from "./ride/ride.component";
 
 const appRoutes: Routes = [
   {
@@ -28,16 +27,6 @@ const appRoutes: Routes = [
   {
     path: 'checkin',
     component: CheckinComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'checkin/:stationId',
-    component: CheckinComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'ride',
-    component: RideComponent,
     canActivate: [AuthGuard]
   },
   {

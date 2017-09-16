@@ -5,7 +5,6 @@ import {CheckinService} from "../common/services/checkin/checkin.service";
 import {isNullOrUndefined} from "util";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/observable/empty";
-import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-checkin',
@@ -15,21 +14,12 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class CheckinComponent implements OnInit {
   checkinForm: FormGroup;
 
-  constructor(private chatService: ChatService, private checkinService: CheckinService, private route: ActivatedRoute, private router: Router) {
+  constructor(private chatService: ChatService, private checkinService: CheckinService) {
   }
 
   ngOnInit() {
     this.checkinForm = new FormGroup({
       'station': new FormControl('', [Validators.required])
-    });
-
-    this.route.queryParams.subscribe((params) => {
-      const stationId = params.get('stationId');
-
-      if (!isNullOrUndefined(stationId) && stationId.trim().length > 0) {
-        this.stationControl.patchValue(stationId);
-        this.doCheckIn();
-      }
     });
   }
 
@@ -60,7 +50,6 @@ export class CheckinComponent implements OnInit {
             })
             .subscribe((channel) => {
               console.log('[CheckinComponent] Channel beigetreten', channel);
-              this.router.navigate(['ride']);
             });
         });
       }
