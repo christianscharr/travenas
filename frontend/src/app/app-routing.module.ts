@@ -7,6 +7,7 @@ import {LogoutComponent} from "./logout/logout.component";
 import {CheckinComponent} from "./checkin/checkin.component";
 import {CheckoutComponent} from "./checkout/checkout.component";
 import {PlanComponent} from "./plan/plan.component";
+import {AuthGuard} from "./auth-guard.service";
 
 const appRoutes: Routes = [
   {
@@ -15,19 +16,23 @@ const appRoutes: Routes = [
   },
   {
     path: 'logout',
-    component: LogoutComponent
+    component: LogoutComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'plan',
-    component: PlanComponent
+    component: PlanComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'checkin',
-    component: CheckinComponent
+    component: CheckinComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'checkout',
-    component: CheckoutComponent
+    component: CheckoutComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '',

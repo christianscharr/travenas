@@ -8,12 +8,12 @@ import {LoginComponent} from './login/login.component';
 import {LogoutComponent} from './logout/logout.component';
 import {CheckinComponent} from './checkin/checkin.component';
 import {CheckoutComponent} from './checkout/checkout.component';
-import {TravelComponent} from './travel/travel.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {ChatService} from "./common/services/chat/chat.service";
-import { PlanComponent } from './plan/plan.component';
+import {PlanComponent} from './plan/plan.component';
 import {ConnectionsService} from "./plan/connections/connections.service";
 import {HttpClientModule} from "@angular/common/http";
+import {AuthGuard} from "./auth-guard.service";
 
 @NgModule({
   declarations: [
@@ -24,7 +24,6 @@ import {HttpClientModule} from "@angular/common/http";
     StartComponent,
     CheckinComponent,
     CheckoutComponent,
-    TravelComponent,
     PlanComponent
   ],
   imports: [
@@ -34,6 +33,7 @@ import {HttpClientModule} from "@angular/common/http";
     AppRoutingModule
   ],
   providers: [
+    AuthGuard,
     AuthService,
     ChatService,
     ConnectionsService
