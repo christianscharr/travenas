@@ -32,7 +32,7 @@ export class CheckinComponent implements OnInit {
     });
 
 
-    window.addEventListener('load', function() {
+    window.addEventListener('load', function () {
       const codeReader = new ZXing.BrowserQRCodeReader();
       console.log('ZXing code reader initialized');
       codeReader.getVideoInputDevices()
@@ -82,15 +82,14 @@ export class CheckinComponent implements OnInit {
   doCheckIn() {
     this.checkinService.getRouteId(this.stationControl.value).subscribe((route) => {
       if (!isNullOrUndefined(route) && route.length > 0) {
-        CheckinService.ROUTE_ID = route[0]['route'];;
+        CheckinService.ROUTE_ID = route[0]['route'];
         CheckinService.STATION_ID = this.stationControl.value;
 
-          this.checkinService.checkTripEnded(this.stationControl.value).subscribe((tripState: any) => {
-            this.router.navigate(['ride'], {queryParams: {"status": tripState.status, "score": tripState.score}});
-          });
-
+        this.checkinService.checkTripEnded(this.stationControl.value).subscribe((tripState: any) => {
+          this.router.navigate(['ride'], {queryParams: {"status": tripState.status, "score": tripState.score}});
         });
       }
     });
+
   }
 }
