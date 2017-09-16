@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ChatService} from "../common/services/chat/chat.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {CheckinService} from "../common/services/checkin/checkin.service";
 import {isNullOrUndefined} from "util";
-import {Observable} from "rxjs/Observable";
 import "rxjs/add/observable/empty";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-checkin',
@@ -14,12 +13,20 @@ import "rxjs/add/observable/empty";
 export class CheckinComponent implements OnInit {
   checkinForm: FormGroup;
 
-  constructor(private chatService: ChatService, private checkinService: CheckinService) {
+  constructor(private checkinService: CheckinService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
     this.checkinForm = new FormGroup({
       'station': new FormControl('', [Validators.required])
+    });
+
+    this.route.paramMap.subscribe((params) => {
+      const stationId = params.get('stationId');
+
+      if (!isNullOrUndefined(stationId) && stationId.trim().length > 0) {
+        this.stationControl.patchValue(stationId);
+      }
     });
   }
 
@@ -32,25 +39,10 @@ export class CheckinComponent implements OnInit {
       if (!isNullOrUndefined(route) && route.length > 0) {
         const routeId = route[0]['route'];
         this.checkinService.checkIn(this.stationControl.value, routeId).subscribe((data: any) => {
-          this.chatService.enterChannel(data.ChatRoomRouteUrl)
-            .catch((err) => {
-              console.error("Error occured while joining channels, retry...", err);
-              this.doCheckIn();
-              return Observable.empty();
-            })
-            .subscribe((channel) => {
-              console.log('[CheckinComponent] Channel beigetreten', channel);
-            });
+          CheckinService.RouteChannelUrl = data.RouteUrl;
+          CheckinService.StationChannelUrl = data.StationUrl;
 
-          this.chatService.enterChannel(data.ChatRoomStationUrl)
-            .catch((err) => {
-              console.error("Error occured while joining channels, retry...", err);
-              this.doCheckIn();
-              return Observable.empty();
-            })
-            .subscribe((channel) => {
-              console.log('[CheckinComponent] Channel beigetreten', channel);
-            });
+          this.router.navigate(['ride']);
         });
       }
     });

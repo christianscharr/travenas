@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {ChatService} from "../common/services/chat/chat.service";
 
 @Component({
   selector: 'app-checkout',
@@ -8,12 +7,11 @@ import {ChatService} from "../common/services/chat/chat.service";
 })
 export class CheckoutComponent implements OnInit {
 
-  constructor(private chatService: ChatService) { }
+  constructor() { }
 
   ngOnInit() {
   }
 
   doCheckOut() {
-    console.log('CheckoutComponent] channels', ChatService.channels);
   }
 }

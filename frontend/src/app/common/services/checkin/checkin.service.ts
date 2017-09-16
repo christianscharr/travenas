@@ -5,6 +5,9 @@ import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class CheckinService {
+  public static RouteChannelUrl: string;
+  public static StationChannelUrl: string;
+
   constructor(private httpClient: HttpClient, private authService: AuthService) { }
 
   getRouteId(stationId: string): Observable<string> {
@@ -19,6 +22,7 @@ export class CheckinService {
     let params = new HttpParams();
     params = params.append("stationId", stationId);
     params = params.append("routeId", routeId);
+    params = params.append("userId", this.authService.userProfile$.getValue().sub);
 
     return this.httpClient.get('/api/checkin', {
       params: params
