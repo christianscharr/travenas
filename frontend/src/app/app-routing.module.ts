@@ -6,6 +6,7 @@ import {environment} from "../environments/environment";
 import {LogoutComponent} from "./logout/logout.component";
 import {CheckinComponent} from "./checkin/checkin.component";
 import {CheckoutComponent} from "./checkout/checkout.component";
+import {PlanComponent} from "./plan/plan.component";
 
 const appRoutes: Routes = [
   {
@@ -15,6 +16,10 @@ const appRoutes: Routes = [
   {
     path: 'logout',
     component: LogoutComponent
+  },
+  {
+    path: 'plan',
+    component: PlanComponent
   },
   {
     path: 'checkin',

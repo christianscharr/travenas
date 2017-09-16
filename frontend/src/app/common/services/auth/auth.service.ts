@@ -5,7 +5,6 @@ import * as auth0 from 'auth0-js';
 import {environment} from "../../../../environments/environment";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {isNullOrUndefined} from "util";
-import {Subject} from "rxjs/Subject";
 
 @Injectable()
 export class AuthService {
@@ -15,7 +14,7 @@ export class AuthService {
     domain: 'travenas.eu.auth0.com',
     responseType: 'token id_token',
     audience: 'https://travenas.eu.auth0.com/userinfo',
-    redirectUri: environment.production ? 'http://travenas.com/login' : 'http://localhost:4200/login',
+    redirectUri: environment.production ? 'http://travenas.com/login' : 'http://localhost:3000/login',
     scope: 'openid profile'
   });
 
@@ -71,7 +70,7 @@ export class AuthService {
     this.isAuthenticated$.next(this.isAuthenticated());
 
     // Go back to the home route
-    this.auth0.logout({returnTo: environment.production ? 'http://travenas.com/logout' : 'http://localhost:4200/logout'});
+    this.auth0.logout({returnTo: environment.production ? 'http://travenas.com/logout' : 'http://localhost:3000/logout'});
   }
 
   public isAuthenticated(): boolean {
