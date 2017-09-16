@@ -24,7 +24,7 @@ router.post('/', function (req, res, next) {
             console.log(bodyData.sections.length + ' Sections gefunden');
 
             Rx.Observable.from(bodyData.sections)
-                .map(section => {
+                .mergeMap(section => {
                     console.log('Inserting section', section);
 
                     return Rx.Observable.create((obs) => {

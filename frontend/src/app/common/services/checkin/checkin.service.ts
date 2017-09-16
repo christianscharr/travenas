@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {AuthService} from "../auth/auth.service";
 import {Observable} from "rxjs/Observable";
-import {Observer} from "rxjs/Observer";
 
 @Injectable()
 export class CheckinService {
@@ -17,8 +16,12 @@ export class CheckinService {
   }
 
   checkIn(stationId: string, routeId: string): Observable<boolean> {
-    return Observable.create((obs: Observer<boolean>) => {
+    let params = new HttpParams();
+    params = params.append("stationId", stationId);
+    params = params.append("routeId", routeId);
 
+    return this.httpClient.get('/api/checkin', {
+      params: params
     });
   }
 }
