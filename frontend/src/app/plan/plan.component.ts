@@ -4,6 +4,7 @@ import {ConnectionsService} from "./connections/connections.service";
 import {Connection, Connections} from "./connections/connection.interface";
 import {Router} from "@angular/router";
 import {Subject} from "rxjs/Subject";
+import {AuthService} from "../common/services/auth/auth.service";
 
 @Component({
   selector: 'app-plan',
@@ -14,7 +15,7 @@ export class PlanComponent implements OnInit {
   planForm: FormGroup;
   connectionResults$: Subject<Connection[]> = new Subject();
 
-  constructor(private connectionsService: ConnectionsService, private router: Router) {
+  constructor(private connectionsService: ConnectionsService, private router: Router, private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -41,6 +42,9 @@ export class PlanComponent implements OnInit {
   }
 
   choose(connection: Connection) {
-    console.log('[PlanComponent] choose', connection);
+    const userId = this.authService.userProfile$.getValue().sub;
+    console.log('[PlanComponent] choose', connection, userId);
+
+    this.connectionsService.saveConnection(userId, connection).subscribe();
   }
 }

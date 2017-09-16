@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AuthService} from "../auth/auth.service";
-import * as SendBird from "SendBird";
+import * as SendBird from "sendbird/SendBird.min";
 import {isNullOrUndefined} from "util";
 import {Observable} from "rxjs/Observable";
 import {Observer} from "rxjs/Observer";
