@@ -12,6 +12,8 @@ import {TravelComponent} from './travel/travel.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {ChatService} from "./common/services/chat/chat.service";
 import { PlanComponent } from './plan/plan.component';
+import {ConnectionsService} from "./plan/connections/connections.service";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -28,11 +30,13 @@ import { PlanComponent } from './plan/plan.component';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    HttpClientModule,
     AppRoutingModule
   ],
   providers: [
     AuthService,
-    ChatService
+    ChatService,
+    ConnectionsService
   ],
   bootstrap: [AppComponent]
 })

@@ -10,4 +10,26 @@
     <small id="endHelp" class="form-text text-muted">Please enter the desired end station.</small>
   </div>
   <button type="button" class="btn btn-primary" (click)="lookup()">Lookup Route</button>
+  <table class="table" *ngIf="connectionResults$|async as connectionResults" style="margin-top: 3rem;">
+    <thead>
+      <tr>
+        <th>From</th>
+        <th>Departure</th>
+        <th>To</th>
+        <th>Arrival</th>
+        <th>Rank</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let connection of connectionResults">
+        <td>{{connection.from}}</td>
+        <td>{{connection.depart|date:'short'}}</td>
+        <td>{{connection.to}}</td>
+        <td>{{connection.arrival|date:'short'}}</td>
+        <td>{{connection.setRank}}</td>
+        <td><button type="button" class="btn btn-outline-primary" (click)="choose(connection)">Choose</button></td>
+      </tr>
+    </tbody>
+  </table>
 </form>
