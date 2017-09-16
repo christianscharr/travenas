@@ -14,17 +14,14 @@ request.perform = function (from, to) {
         headers: { 'API-Key': 'V0011960D51C-899C-4381-B6BB-FBA0CE202FC5' }
     };
 
-    var transformResponseData = function (data) {
-        var transformed = data;
-        return transformed;
-    };
+
 
     var p = new Promise(function (resolve) {
         client.get('http://free.viapi.ch/v1/connection', args, function (data, response) {
             // parsed response body as js object
             //console.log(data);
-            var transformed = transformResponseData(data);
-            resolve(transformed);
+            //var transformed = transformResponseData(data);
+            resolve(data);
             // raw response
             //console.log(response);
         });
