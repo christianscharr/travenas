@@ -6,4 +6,6 @@ router.get('/', function(req, res, next) {
   controller.getConnection(req.query.from, req.query.to).then(function (value) { res.send(value) });
 });
 
+
+
 module.exports = router;

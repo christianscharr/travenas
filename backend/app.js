@@ -5,10 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var connections = require('./routes/connections');
-var chat = require('./routes/chat');
 var trip = require('./routes/trip');
 var tripending = require('./routes/tripending');
-var app = express();
+var app = require('express')();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -23,18 +22,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
 app.use('/api/connections', connections);
-app.use('/api/checkin', chat);
 app.use('/api/tripending', tripending);
 app.use('/api/trip', trip);
+
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
-});
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
 });
 
 // error handler

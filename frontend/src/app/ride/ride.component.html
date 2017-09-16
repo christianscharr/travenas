@@ -4,11 +4,28 @@
 <p *ngIf="tripStatus == 'finished'">
   Your trip has ended. You have a new score of {{newScore}}. Keep collecting!
 </p>
-<form [formGroup]="stationChatForm">
-  <textarea name="stationMessages" id="stationMessages" formControlName="stationMessages"></textarea>
-  <div class="form-group">
-    <label for="stationMessage">New message</label>
-    <input type="text" class="form-control" formControlName="stationMessage" id="stationMessage" placeholder="Enter your message">
+<div class="container">
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4">
+    <form [formGroup]="stationChatForm">
+      <textarea class="form-control" name="stationMessages" id="stationMessages" formControlName="stationMessages" rows="5"></textarea>
+      <div class="form-inline">
+        <div class="form-group">
+          <input type="text" class="form-control" formControlName="stationMessage" id="stationMessage" placeholder="Enter your message">
+        </div>
+        <button type="button" class="btn btn-primary" (click)="sendStationMessage()">Send Message</button>
+      </div>
+    </form>
+    <form [formGroup]="routeChatForm" style="margin-top: 3rem;">
+      <textarea class="form-control" name="routeMessages" id="routeMessages" formControlName="routeMessages" rows="5"></textarea>
+      <div class="form-inline">
+        <div class="form-group">
+          <input type="text" class="form-control" formControlName="routeMessage" id="routeMessage" placeholder="Enter your message">
+        </div>
+        <button type="button" class="btn btn-primary" (click)="sendRouteMessage()">Send Message</button>
+      </div>
+    </form>
   </div>
-  <button type="button" class="btn btn-primary" (click)="sendStationMessage()">Send Message</button>
-</form>
+</div>
+
