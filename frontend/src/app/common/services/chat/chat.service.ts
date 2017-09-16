@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import {AuthService} from "../auth/auth.service";
 import * as SendBird from "sendbird/SendBird.min";
 import {isNullOrUndefined} from "util";
@@ -7,11 +7,19 @@ import {Observer} from "rxjs/Observer";
 import "rxjs/add/operator/catch";
 
 @Injectable()
-export class ChatService {
+export class ChatService implements OnDestroy{
+  ngOnDestroy(): void {
+    ChatService.handlerIDs.map((item) => {
+      ChatService.sendBird.removeChannelHandler(item);
+    })
+
+  }
+
   private static APP_ID: string = 'F5382E02-4083-4C36-99CC-E4181584CDD8';
   private static sendBird;
   private static connected = false;
   private static joinedChannels: Array<any> = [];
+  private static handlerIDs: Array<string> = [];
 
   constructor(private authService: AuthService) {
     ChatService.sendBird = new SendBird({'appId': ChatService.APP_ID});
@@ -100,6 +108,29 @@ export class ChatService {
                   return;
                 }
 
+                const ChannelHandler = new ChatService.sendBird.ChannelHandler();
+
+                ChannelHandler.onMessageReceived = function(channel, message){
+                  // do something...
+                  console.log('recieving messages !!! ', channel, message);
+
+                  // channel.sendUserMessage('hhhhhaaallll', function(message, error){
+                  //   if (error) {
+                  //     console.error(error);
+                  //
+                  //     return;
+                  //   }
+                  //
+                  //   // onSent
+                  //   console.log('sending messages !!', message);
+                  // });
+
+
+                };
+                console.log('addChannelHandler done  ', channel);
+                const uniqueHandlerId = channel.url + user;
+                ChatService.sendBird.addChannelHandler(uniqueHandlerId, ChannelHandler);
+                ChatService.handlerIDs.push(uniqueHandlerId);
                 ChatService.joinedChannels.push(channel);
                 obs.next(channel);
                 obs.complete();
