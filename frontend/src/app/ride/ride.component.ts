@@ -1,11 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from "../common/services/auth/auth.service";
-import {FormControl, FormGroup} from "@angular/forms";
-import {isNullOrUndefined} from "util";
-import * as SendBird from "sendbird/sendbird.min";
+import {AbstractControl, FormControl, FormGroup} from "@angular/forms";
 import {Subject} from "rxjs/Subject";
 import {CheckinService} from "../common/services/checkin/checkin.service";
 import { ActivatedRoute, Router } from '@angular/router';
+import io from 'socket.io-client';
+import {environment} from "../../environments/environment";
+import {isNullOrUndefined} from "util";
 
 @Component({
   selector: 'app-ride',
@@ -13,12 +14,15 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./ride.component.css']
 })
 export class RideComponent implements OnInit, OnDestroy {
-  private SENDBIRD_APP_ID: string = 'F5382E02-4083-4C36-99CC-E4181584CDD8';
-  private sb = new SendBird({'appId': this.SENDBIRD_APP_ID});
-
   stationChatForm: FormGroup;
-  private handlerIDs: Array<string> = [];
-  private messageStream$: Subject<string> = new Subject();
+  routeChatForm: FormGroup;
+
+  private socketIO;
+  private stationRoom: string;
+  private routeRoom: string;
+
+  private messageStation$: Subject<string> = new Subject();
+  private messageRoute$: Subject<string> = new Subject();
 
   private tripStatus = null;
   private newScore = null;
@@ -38,78 +42,73 @@ export class RideComponent implements OnInit, OnDestroy {
       'stationMessage': new FormControl('', [])
     });
 
-    this.authService.userProfile$.subscribe((userProfil) => {
-      if (userProfil === null) {
-        return;
-      }
-
-      this.subscribeToStationChat(userProfil);
+    this.routeChatForm = new FormGroup({
+      'routeMessages': new FormControl('', []),
+      'routeMessage': new FormControl('', [])
     });
-  }
 
-  subscribeToStationChat(userProfil) {
-    this.sb.connect(userProfil.sub, (user, err) => {
-      if (!isNullOrUndefined(err)) {
-        console.error('[RideComponent] connect failed, try again', err);
-        this.subscribeToStationChat(userProfil);
+    this.authService.userProfile$.subscribe((userProfil) => {
+      if (userProfil === null || !isNullOrUndefined(this.socketIO)) {
         return;
       }
 
-      console.log(`StationChannelUrl: ${CheckinService.StationChannelUrl}`);
+      this.stationRoom = 'Station: ' + CheckinService.STATION_ID;
+      this.routeRoom = 'Route: ' + CheckinService.ROUTE_ID;
 
-      this.sb.OpenChannel.getChannel(CheckinService.StationChannelUrl, (channel, error) => {
-        if (error) {
-          console.error('[RideComponent] get channel failed, try again', error);
-          this.subscribeToStationChat(userProfil);
-          return;
-        }
+      this.socketIO = io(environment.production === false ? 'http://localhost:3000' : 'http://travenas.com');
 
-        channel.enter((response, error) => {
-          if (error) {
-            console.error('[RideComponent] enter channel failed, try again', error);
-            this.subscribeToStationChat(userProfil);
-            return;
-          }
+      this.socketIO.emit('room', {
+        room: this.stationRoom,
+        userId: userProfil.sub
+      });
 
-          this.messageStream$.subscribe((msg: string) => {
-            channel.sendUserMessage(msg, (message, error) => {
-              if (!isNullOrUndefined(error)) {
-                console.error(error);
-                return;
-              }
+      this.socketIO.on(this.stationRoom, (msg) => {
+        this.stationMessagesControl.patchValue( this.stationMessagesControl.value + "\n" + msg);
+      });
 
-              console.log('successfully send a message');
-            });
-          });
+      this.socketIO.emit('room', {
+        room: this.routeRoom,
+        userId: userProfil.sub
+      });
 
-          const stationChannelHandler = new this.sb.ChannelHandler();
-
-          stationChannelHandler.onMessageReceived = function(channel, message){
-            console.log(channel, message);
-          };
-
-          this.sb.addChannelHandler(channel.name + "_" + userProfil.sub, stationChannelHandler);
-        });
+      this.socketIO.on(this.routeRoom, (msg) => {
+        this.routeMessagesControl.patchValue( this.routeMessagesControl.value + "\n" + msg);
       });
     });
+
+    this.messageRoute$.subscribe((msg) => {
+      this.socketIO.emit(this.routeRoom, msg);
+    });
+
+    this.messageStation$.subscribe((msg) => {
+      this.socketIO.emit(this.stationRoom, msg);
+    });
   }
 
-  get stationMessagesControl() {
-    return this.stationChatForm.get('stationMessages');
+  ngOnDestroy() {
   }
 
-  get stationMessageControl() {
+  get stationMessageControl(): AbstractControl {
     return this.stationChatForm.get('stationMessage');
   }
 
-  ngOnDestroy(): void {
-    this.handlerIDs.map((item) => {
-      this.sb.removeChannelHandler(item);
-    })
+  get stationMessagesControl(): AbstractControl {
+    return this.stationChatForm.get('stationMessages');
+  }
+
+  get routeMessageControl(): AbstractControl {
+    return this.routeChatForm.get('routeMessage');
+  }
+
+  get routeMessagesControl(): AbstractControl {
+    return this.routeChatForm.get('routeMessages');
   }
 
   sendStationMessage() {
-    const msg: string =  this.stationMessageControl.value;
-    this.messageStream$.next(msg);
+    this.messageStation$.next(this.stationMessageControl.value);
+  }
+
+  sendRouteMessage() {
+    this.messageRoute$.next(this.routeMessageControl.value);
   }
 }

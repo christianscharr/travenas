@@ -9,7 +9,10 @@ router.post('/', function (req, res, next) {
     var sqlConnection = mysql.createConnection(config.mysqldb);
 
     sqlConnection.connect(function (err) {
-        if (err) throw err;
+        if (err) {
+            console.log('api/trip get request: ', err);
+            throw err;
+        }
         console.log('You are now connected...');
 
         var endStationId = bodyData.sections[bodyData.sections.length-1].toStationId;

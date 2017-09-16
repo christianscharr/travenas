@@ -82,10 +82,8 @@ export class CheckinComponent implements OnInit {
   doCheckIn() {
     this.checkinService.getRouteId(this.stationControl.value).subscribe((route) => {
       if (!isNullOrUndefined(route) && route.length > 0) {
-        const routeId = route[0]['route'];
-        this.checkinService.checkIn(this.stationControl.value, routeId).subscribe((data: any) => {
-          CheckinService.RouteChannelUrl = data.RouteUrl;
-          CheckinService.StationChannelUrl = data.StationUrl;
+        CheckinService.ROUTE_ID = route[0]['route'];;
+        CheckinService.STATION_ID = this.stationControl.value;
 
           this.checkinService.checkTripEnded(this.stationControl.value).subscribe((tripState: any) => {
             this.router.navigate(['ride'], {queryParams: {"status": tripState.status, "score": tripState.score}});

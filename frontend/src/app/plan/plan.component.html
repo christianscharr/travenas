@@ -10,6 +10,27 @@
     <small id="endHelp" class="form-text text-muted">Please enter the desired end station.</small>
   </div>
   <button type="button" class="btn btn-primary" (click)="lookup()">Lookup Route</button>
+  <!-- Modal -->
+  <div id="exampleModal" class="model" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="exampleModalLabel"
+       *ngIf="showNotification">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Choose a connection</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          You have successfully chosen a connection.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="disableNotification()">OK</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
   <table class="table" *ngIf="connectionResults$|async as connectionResults" style="margin-top: 3rem;">
     <thead>
       <tr>
@@ -22,6 +43,7 @@
       </tr>
     </thead>
     <tbody>
+
       <tr *ngFor="let connection of connectionResults; let i = index">
         <td>{{connection.from}}</td>
         <td>{{connection.depart|date:'short'}}</td>
@@ -30,10 +52,17 @@
 
         <span *ngFor="let counter of rankingArray[i];">
           <span class="fa fa-star" aria-hidden="true"></span>
-        </span>
 
-        <td><button type="button" class="btn btn-outline-primary" (click)="choose(connection)">Choose</button></td>
+        </span>
+        <span *ngIf="!rankingArray[i] || rankingArray[i].length === 0 " class="fa fa-star-o" aria-hidden="true"></span>
+
+        <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal"
+                    (click)="choose(connection)">Choose</button></td>
       </tr>
     </tbody>
   </table>
 </form>
+
+
+
+
