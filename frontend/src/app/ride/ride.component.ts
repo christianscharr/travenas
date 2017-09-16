@@ -62,8 +62,9 @@ export class RideComponent implements OnInit, OnDestroy {
         userId: userProfil.sub
       });
 
-      this.socketIO.on(this.stationRoom, (msg) => {
-        this.stationMessagesControl.patchValue( this.stationMessagesControl.value + "\n" + msg);
+      this.socketIO.on('message', (msg) => {
+        this.stationMessagesControl.patchValue( this.stationMessagesControl.value + "\n"
+          + '[' + msg.userId + ']: ' + msg.txt);
       });
 
       this.socketIO.emit('room', {
@@ -71,17 +72,24 @@ export class RideComponent implements OnInit, OnDestroy {
         userId: userProfil.sub
       });
 
-      this.socketIO.on(this.routeRoom, (msg) => {
-        this.routeMessagesControl.patchValue( this.routeMessagesControl.value + "\n" + msg);
+      this.socketIO.on('message', (msg) => {
+        this.routeMessagesControl.patchValue( this.routeMessagesControl.value + "\n"
+          + '[' + msg.userId + ']: ' + msg.txt);
       });
-    });
 
-    this.messageRoute$.subscribe((msg) => {
-      this.socketIO.emit(this.routeRoom, msg);
-    });
+      this.messageRoute$.subscribe((msg) => {
+        this.socketIO.emit("message", {
+          txt: msg,
+          userId: userProfil.sub
+        });
+      });
 
-    this.messageStation$.subscribe((msg) => {
-      this.socketIO.emit(this.stationRoom, msg);
+      this.messageStation$.subscribe((msg) => {
+        this.socketIO.emit("message", {
+          txt: msg,
+          userId: userProfil.sub
+        });
+      });
     });
   }
 
