@@ -15,6 +15,7 @@ export class PlanComponent implements OnInit {
   planForm: FormGroup;
   connectionResults$: Subject<Connection[]> = new Subject();
   rankingArray = [];
+  showNotification:boolean = false;
 
   constructor(private connectionsService: ConnectionsService, private router: Router, private authService: AuthService) {
   }
@@ -49,6 +50,9 @@ export class PlanComponent implements OnInit {
   createArray(counter) {
     const foo = [];
 
+    if(counter === 1) {
+      return foo;
+    }
     for (let i = 1; i <= counter; i++) {
       foo.push(i);
     }
@@ -59,6 +63,12 @@ export class PlanComponent implements OnInit {
     const userId = this.authService.userProfile$.getValue().sub;
     console.log('[PlanComponent] choose', connection, userId);
 
-    this.connectionsService.saveConnection(userId, connection).subscribe();
+    this.connectionsService.saveConnection(userId, connection).subscribe((value) => {
+        this.showNotification = true;
+    });
+  }
+
+  disableNotification() {
+    this.showNotification = false;
   }
 }
