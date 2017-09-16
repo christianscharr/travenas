@@ -70,7 +70,7 @@ export class AuthService {
     this.isAuthenticated$.next(this.isAuthenticated());
 
     // Go back to the home route
-    this.auth0.logout({returnTo: environment.production ? 'http://travenas.com/logout' : 'http://localhost:4200/logout'});
+    this.auth0.logout({returnTo: environment.production ? 'http://travenas.com/logout' : 'http://localhost:3000/logout'});
   }
 
   public isAuthenticated(): boolean {

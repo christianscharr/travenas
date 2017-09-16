@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
-app.use('/connections', connections);
+app.use('/api/connections', connections);
 app.use('/api/checkin', chat);
 app.use('/api/trip', trip);
 app.get('*', function(req, res) {
