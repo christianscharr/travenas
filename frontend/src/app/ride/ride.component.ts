@@ -109,7 +109,7 @@ export class RideComponent implements OnInit, OnDestroy {
       });
 
       this.gameAction$
-        .debounceTime(2000)
+        .debounceTime(500)
         .subscribe((action) => {
         console.log("Got game action!");
 
