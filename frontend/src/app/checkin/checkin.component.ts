@@ -29,7 +29,7 @@ export class CheckinComponent implements OnInit {
 
   doCheckIn() {
     this.checkinService.getRouteId(this.stationControl.value).subscribe((route) => {
-      if (!isNullOrUndefined(route) || route.length > 0) {
+      if (!isNullOrUndefined(route) && route.length > 0) {
         const routeId = route[0]['route'];
         this.checkinService.checkIn(this.stationControl.value, routeId).subscribe((data: any) => {
           this.chatService.enterChannel(data.ChatRoomRouteUrl)

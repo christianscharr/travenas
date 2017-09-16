@@ -6,7 +6,6 @@ var router = express.Router();
 
 router.post('/', function (req, res, next) {
     var bodyData = req.body;
-    console.log('[API: Trip] Body-Data', bodyData);
     var sqlConnection = mysql.createConnection(config.mysqldb);
 
     sqlConnection.connect(function (err) {
@@ -18,21 +17,15 @@ router.post('/', function (req, res, next) {
         sqlConnection.query('INSERT INTO connections (user, fromDest, toDest, depart, arrival, endStation, ranking) VALUES (?, ?, ?, ?, ?, ?, ?)',
             [bodyData.userId, bodyData.from, bodyData.to, bodyData.depart, bodyData.arrival, endStationId, bodyData.ranking], function (err, result) {
             if (err) throw err;
-            console.log("Connection geschrieben");
-
             var connectionId = result.insertId;
-            console.log(bodyData.sections.length + ' Sections gefunden');
 
             Rx.Observable.from(bodyData.sections)
                 .mergeMap(section => {
-                    console.log('Inserting section', section);
-
                     return Rx.Observable.create((obs) => {
                         sqlConnection.query('INSERT INTO sections (connection, fromStation, toStation, route) VALUES (?, ?, ?, ?)',
                             [connectionId, section.fromStationId, section.toStationId, section.route], function (err, result) {
                             if (err) obs.error(err);
                             obs.next(true);
-                            console.log('Insertion completed');
                             obs.complete();
                         });
                     });
@@ -62,7 +55,6 @@ router.post('/identify', function (req, res, next) {
             [dataBody.userId, dataBody.stationId, dataBody.stationId, dataBody.time, dataBody.time], function (err, result) {
             if (err) throw err;
 
-            console.log(result);
             res.send(result);
         });
     });
