@@ -10,7 +10,8 @@ request.perform = function (from, to) {
     var client = new Client();
 
     var args = {
-        parameters: { from: encodeURIComponent(from), to: encodeURIComponent(to) },
+        parameters: { from: from, to: to },
+        //parameters: { from: encodeURIComponent(from), to: encodeURIComponent(to) },
         headers: {
             'API-Key': 'V0011960D51C-899C-4381-B6BB-FBA0CE202FC5',
             'Accept-Language': "de"
