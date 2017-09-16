@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var connections = require('./routes/connections');
 var chat = require('./routes/chat');
 var trip = require('./routes/trip');
+var tripending = require('./routes/tripending');
 var app = express();
 
 // view engine setup
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
 app.use('/api/connections', connections);
 app.use('/api/checkin', chat);
+app.use('/api/tripending', tripending);
 app.use('/api/trip', trip);
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));

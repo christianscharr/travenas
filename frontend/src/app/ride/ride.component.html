@@ -1,3 +1,9 @@
+<p *ngIf="tripStatus == 'ongoing'">
+  Trip is still going on, have a good journey!
+</p>
+<p *ngIf="tripStatus == 'finished'">
+  Your trip has ended. You have a new score of {{newScore}}. Keep collecting!
+</p>
 <form [formGroup]="stationChatForm">
   <textarea name="stationMessages" id="stationMessages" formControlName="stationMessages"></textarea>
   <div class="form-group">

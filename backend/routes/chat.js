@@ -22,9 +22,9 @@ chat.get('/', function (req, res) {
     const userId = req.query.userId;
     const CHAT_ROOM_NAME_ROUTE = CHAT_ROOM_ROUTE + routeId;
     const CHAT_ROOM_NAME_STATION = CHAT_ROOM_STATION + stationId;
-    //const result = {};
+    const result = {};
 
-    StationsController.visitStation(stationId, userId).then(function (result) {
+    //StationsController.visitStation(stationId, userId).then(function (result) {
 
         console.log('current chat rooms: ', chatRooms.keys(), chatRooms.values(), result);
         sb.connect('admin', (user, error) => {
@@ -81,7 +81,7 @@ chat.get('/', function (req, res) {
                 //res.send(result);
             }
 
-        });
+        //});
     });
 
 });

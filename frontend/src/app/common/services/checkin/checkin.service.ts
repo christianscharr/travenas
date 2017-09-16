@@ -28,4 +28,14 @@ export class CheckinService {
       params: params
     });
   }
+
+  checkTripEnded(stationId: string): Observable<boolean> {
+    let params = new HttpParams();
+    params = params.append("stationId", stationId);
+    params = params.append("userId", this.authService.userProfile$.getValue().sub);
+
+    return this.httpClient.get('/api/tripending', {
+      params: params
+    });
+  }
 }

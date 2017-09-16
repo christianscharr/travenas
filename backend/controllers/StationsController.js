@@ -17,7 +17,7 @@ controller.visitStation = function (stationId, userId) {
                 if (err) throw err;
                 console.log("results " + results);
                 if (results.length == 0) {
-                    resolve({trip: {status: "ongoing"}});
+                    resolve({status: "ongoing"});
                     return;
                 }
                 //var endStation = results[0].endStation;
@@ -39,14 +39,14 @@ controller.visitStation = function (stationId, userId) {
                                     [newScore, userId], function (err, result) {
                                         if (err) throw err;
                                         console.log("result " + result);
-                                        resolve({trip: {status: "finished"}});
+                                        resolve({status: "finished", score: newScore});
                                     });
                             } else {
                                 sqlConnection.query('INSERT INTO score (user, score) VALUES (?, ?)',
                                     [userId, rank], function (err, result) {
                                         if (err) throw err;
                                         console.log(result);
-                                        resolve({trip: {status: "finished"}});
+                                        resolve({status: "finished", score: rank});
                                     });
                             }
 

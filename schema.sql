@@ -55,7 +55,7 @@ DROP TABLE IF EXISTS `score`;
 CREATE TABLE IF NOT EXISTS `score` (
   `scoreid` int(11) NOT NULL AUTO_INCREMENT,
   `user` varchar(255) NOT NULL,
-  `score` int(11) NOT NULL DEFAULT '0',
+  `score` float NOT NULL DEFAULT '0',
   PRIMARY KEY (`scoreid`),
   UNIQUE KEY `userIdx` (`user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

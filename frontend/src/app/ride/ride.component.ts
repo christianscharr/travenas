@@ -5,6 +5,7 @@ import {isNullOrUndefined} from "util";
 import * as SendBird from "sendbird/sendbird.min";
 import {Subject} from "rxjs/Subject";
 import {CheckinService} from "../common/services/checkin/checkin.service";
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-ride',
@@ -19,9 +20,19 @@ export class RideComponent implements OnInit, OnDestroy {
   private handlerIDs: Array<string> = [];
   private messageStream$: Subject<string> = new Subject();
 
-  constructor(private authService: AuthService, private checkinService: CheckinService) { }
+  private tripStatus = null;
+  private newScore = null;
+
+  constructor(private authService: AuthService, private checkinService: CheckinService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route
+      .queryParams
+      .subscribe(params => {
+        this.tripStatus = params['status'];
+        this.newScore = params['score'];
+      });
+
     this.stationChatForm = new FormGroup({
       'stationMessages': new FormControl('', []),
       'stationMessage': new FormControl('', [])

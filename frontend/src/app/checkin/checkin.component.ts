@@ -42,7 +42,10 @@ export class CheckinComponent implements OnInit {
           CheckinService.RouteChannelUrl = data.RouteUrl;
           CheckinService.StationChannelUrl = data.StationUrl;
 
-          this.router.navigate(['ride']);
+          this.checkinService.checkTripEnded(this.stationControl.value).subscribe( (tripState: any) => {
+            this.router.navigate(['ride'], {queryParams: {"status":tripState.status, "score":tripState.score}});
+          });
+
         });
       }
     });
