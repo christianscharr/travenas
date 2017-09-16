@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Erstellungszeit: 16. Sep 2017 um 09:48
+-- Erstellungszeit: 16. Sep 2017 um 12:12
 -- Server-Version: 5.7.19
 -- PHP-Version: 7.0.21
 
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `connections` (
 
 DROP TABLE IF EXISTS `score`;
 CREATE TABLE IF NOT EXISTS `score` (
-  `scoreid` int(11) NOT NULL,
+  `scoreid` int(11) NOT NULL AUTO_INCREMENT,
   `user` varchar(255) NOT NULL,
   `score` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`scoreid`),
