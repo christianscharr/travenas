@@ -15,6 +15,7 @@ import {ConnectionsService} from "./plan/connections/connections.service";
 import {HttpClientModule} from "@angular/common/http";
 import {AuthGuard} from "./auth-guard.service";
 import {CheckinService} from "./common/services/checkin/checkin.service";
+import { RideComponent } from './ride/ride.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {CheckinService} from "./common/services/checkin/checkin.service";
     StartComponent,
     CheckinComponent,
     CheckoutComponent,
-    PlanComponent
+    PlanComponent,
+    RideComponent
   ],
   imports: [
     BrowserModule,
