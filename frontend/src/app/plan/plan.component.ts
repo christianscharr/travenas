@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ConnectionsService} from "./connections/connections.service";
-import {Connection, Connections} from "./connections/connection.interface";
+import {Connection} from "./connections/connection.interface";
 import {Router} from "@angular/router";
 import {Subject} from "rxjs/Subject";
 import {AuthService} from "../common/services/auth/auth.service";

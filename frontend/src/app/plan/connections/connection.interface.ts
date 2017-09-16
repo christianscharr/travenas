@@ -7,7 +7,7 @@ export interface Connection {
   to: string,
   depart: number,
   arrival: number,
-  setRank: number,
+  ranking: number,
   sections: Array<Section>
 }
 

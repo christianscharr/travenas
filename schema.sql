@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Erstellungszeit: 16. Sep 2017 um 09:04
+-- Erstellungszeit: 16. Sep 2017 um 09:48
 -- Server-Version: 5.7.19
 -- PHP-Version: 7.0.21
 
@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `connections` (
   `arrival` varchar(255) DEFAULT NULL,
   `finished` tinyint(1) NOT NULL DEFAULT '0',
   `endStation` varchar(255) NOT NULL,
+  `ranking` float NOT NULL,
   PRIMARY KEY (`connectionid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

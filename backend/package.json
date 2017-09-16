@@ -15,6 +15,7 @@
     "mysql": "^2.14.1",
     "node-rest-client": "^3.1.0",
     "promise": "^8.0.1",
+    "rxjs": "^5.4.3",
     "sendbird": "^3.0.41",
     "serve-favicon": "~2.4.2"
   }

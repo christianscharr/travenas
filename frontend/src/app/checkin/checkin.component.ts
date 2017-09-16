@@ -3,6 +3,8 @@ import {ChatService} from "../common/services/chat/chat.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/observable/from";
+import {CheckinService} from "../common/services/checkin/checkin.service";
+import {isNullOrUndefined} from "util";
 
 @Component({
   selector: 'app-checkin',
@@ -12,7 +14,7 @@ import "rxjs/add/observable/from";
 export class CheckinComponent implements OnInit {
   checkinForm: FormGroup;
 
-  constructor(private chatService: ChatService) {
+  constructor(private chatService: ChatService, private checkinService: CheckinService) {
   }
 
   ngOnInit() {
@@ -26,11 +28,10 @@ export class CheckinComponent implements OnInit {
   }
 
   doCheckIn() {
-    this.chatService.enterChannel(this.stationControl.value)
-      .catch((err) => {
-        console.error('[CheckinComponent] doCheckIn()', err);
-        return Observable.from([err]);
-      })
-      .subscribe();
+    this.checkinService.getRouteId(this.stationControl.value).subscribe((route) => {
+      if (!isNullOrUndefined(route) || route.length > 0) {
+
+      }
+    });
   }
 }
