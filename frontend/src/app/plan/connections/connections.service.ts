@@ -29,16 +29,7 @@ export class ConnectionsService {
   }
 
   saveConnection(userId: string, connection: Connection): Observable<any> {
-    // Initialize Params Object
-    let params = new HttpParams();
-    params = params.append("userId", userId);
-    params = params.append("from", connection.from);
-    params = params.append("depart", connection.depart.toString());
-    params = params.append("to", connection.to);
-    params = params.append("arrival", connection.arrival.toString());
-
-    return this.httpClient.post<Connections>("/api/trip", {
-      params: params
-    });
+    connection['userId'] = userId;
+    return this.httpClient.post<Connections>("/api/trip", connection);
   }
 }
