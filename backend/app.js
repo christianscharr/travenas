@@ -22,6 +22,9 @@ app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
 app.use('/connections', connections);
 app.use('/api/checkin', chat);
+app.get('*', function(req, res) {
+  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -38,7 +41,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  next(err);
 });
 
 module.exports = app;
