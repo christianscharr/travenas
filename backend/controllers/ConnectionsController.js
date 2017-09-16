@@ -30,7 +30,7 @@ controller.getConnection = function (from, to) {
                 outConn.sections.push(outSec);
             }
 
-            outConn.setRank = inConn.duration; //TODO: only a workaround
+            outConn.setRank = Math.random(); //TODO: only a workaround
             transformed.connections.push(outConn);
         }
         return transformed;
