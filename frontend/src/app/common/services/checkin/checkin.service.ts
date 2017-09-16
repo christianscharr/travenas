@@ -5,8 +5,8 @@ import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class CheckinService {
-  public static RouteChannelUrl: string;
-  public static StationChannelUrl: string;
+  public static STATION_ID: string;
+  public static ROUTE_ID: string;
 
   constructor(private httpClient: HttpClient, private authService: AuthService) { }
 
