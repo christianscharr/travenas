@@ -10,4 +10,4 @@ RUN cd /usr/src/app/frontend && npm install && npm run build --prod --env=prod -
 
 EXPOSE 3000
 
-CMD [ "npm", "run", "start" ]
+CMD [ "node", "/usr/src/app/backend/bin/www" ]
