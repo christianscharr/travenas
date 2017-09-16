@@ -11,6 +11,7 @@ import {CheckoutComponent} from './checkout/checkout.component';
 import {TravelComponent} from './travel/travel.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {ChatService} from "./common/services/chat/chat.service";
+import { PlanComponent } from './plan/plan.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {ChatService} from "./common/services/chat/chat.service";
     StartComponent,
     CheckinComponent,
     CheckoutComponent,
-    TravelComponent
+    TravelComponent,
+    PlanComponent
   ],
   imports: [
     BrowserModule,
