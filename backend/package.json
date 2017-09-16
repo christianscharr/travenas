@@ -12,6 +12,7 @@
     "express": "~4.15.2",
     "jade": "~1.11.0",
     "morgan": "~1.8.1",
+    "mysql": "^2.14.1",
     "node-rest-client": "^3.1.0",
     "promise": "^8.0.1",
     "sendbird": "^3.0.41",
