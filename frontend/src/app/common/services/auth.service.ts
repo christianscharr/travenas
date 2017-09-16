@@ -19,7 +19,7 @@ export class AuthService {
     scope: 'openid profile'
   });
 
-  userProfile$: Subject<any> = new Subject();
+  userProfile$: BehaviorSubject<any> = new BehaviorSubject(null);
   isAuthenticated$: BehaviorSubject<boolean> = new BehaviorSubject(this.isAuthenticated());
 
   constructor(public router: Router) {

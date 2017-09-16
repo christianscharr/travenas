@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {AuthService} from "./common/services/auth.service";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
-import {Subject} from "rxjs/Subject";
 
 @Component({
   selector: 'app-root',
@@ -10,7 +9,7 @@ import {Subject} from "rxjs/Subject";
 })
 export class AppComponent {
   loggedIn$: BehaviorSubject<boolean>;
-  userProfile$: Subject<any>;
+  userProfile$: BehaviorSubject<any>;
 
   constructor(private authService: AuthService) {
     this.loggedIn$ = authService.isAuthenticated$;
