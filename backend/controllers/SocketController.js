@@ -16,7 +16,7 @@ let socketController = function (socket) {
     });
 
     socket.on('room', function (msg) {
-        const fileName = "./tmp/" + msg.room + ".json";
+        const fileName = "./tmp/" + msg.room.replace(/[^a-zA-Z0-9\-_ ]/g, "") + ".json";
         const room = io.sockets.adapter.rooms[msg.room];
 
         if (util.isNullOrUndefined(room) || room.length < 1) {
@@ -73,7 +73,7 @@ let socketController = function (socket) {
     });
 
     socket.on('game', function (msg) {
-        const fileName = "./tmp/" + msg.room + ".json";
+        const fileName = "./tmp/" + msg.room.replace(/[^a-zA-Z0-9\-_ ]/g, "") + ".json";
 
         fs.readFile(fileName, function (err, data) {
             if (err) {
