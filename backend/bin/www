@@ -3,14 +3,10 @@
 /**
  * Module dependencies.
  */
-
-var app = require('../app');
 var debug = require('debug')('backend:server');
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var socketController = require('../controllers/SocketController');
-
-io.on('connection', socketController);
+var ctrl = require("../controllers/SocketController");
+var app = ctrl.app;
+var http = ctrl.http;
 
 /**
  * Get port from environment and store in Express.
