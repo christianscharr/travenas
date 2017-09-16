@@ -13,10 +13,10 @@ router.post('/', function (req, res, next) {
         if (err) throw err;
         console.log('You are now connected...');
 
-        var endStationId = conn.sections[sections.length-1].toStationId;
+        var endStationId = conn.sections[conn.sections.length-1].toStationId;
 
-        sqlConnection.query('INSERT INTO connections (user, fromDest, toDest, depart, arrival, endStation) VALUES (?, ?, ?, ?, ?, ?)',
-            [userId, conn.from, conn.to, conn.depart, conn.arrival, endStationId], function (err, result) {
+        sqlConnection.query('INSERT INTO connections (user, fromDest, toDest, depart, arrival, endStation, ranking) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [userId, conn.from, conn.to, conn.depart, conn.arrival, endStationId, conn.ranking], function (err, result) {
             if (err) throw err;
             console.log(result);
             var connectionId = result.insertId;
