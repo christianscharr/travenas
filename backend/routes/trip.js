@@ -3,7 +3,6 @@ var mysql = require('mysql');
 var config = require('../config');
 var router = express.Router();
 
-
 router.post('/', function (req, res, next) {
     var userId = req.query.user;
     var conn = req.body;
