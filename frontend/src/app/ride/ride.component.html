@@ -4,7 +4,7 @@
 <p *ngIf="tripStatus == 'finished'">
   Your trip has ended. You have a new score of {{newScore}}. Keep collecting!
 </p>
-<div *ngIf="" class="winPopup">
+<div *ngIf="won$|async" class="winPopup">
   Congratulations! You have won!
 </div>
 <div class="row">

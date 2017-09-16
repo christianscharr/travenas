@@ -87,6 +87,10 @@ export class RideComponent implements OnInit, OnDestroy {
       this.socketIO.on('game', (msg) => {
         console.log("Got update game data from server!");
 
+        if (msg.win === true) {
+          console.log("Wir haben einen Gewinner! :)", msg);
+        }
+
         if (msg.win === true && msg.winner === userProfil.sub) {
           this.won$.next(true);
         }
