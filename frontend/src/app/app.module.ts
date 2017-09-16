@@ -5,11 +5,15 @@ import {AppComponent} from './app.component';
 import {StartComponent} from './start/start.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {AuthService} from "./common/services/auth.service";
+import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StartComponent
+    StartComponent,
+    LoginComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
