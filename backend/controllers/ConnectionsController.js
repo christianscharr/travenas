@@ -10,8 +10,8 @@ controller.getConnection = function (from, to) {
             var outConn = {};
             outConn.from = inConn.from.location.name;
             outConn.to = inConn.to.location.name;
-            outConn.depart = inConn.from.debugHumanReadableTime;
-            outConn.arrival = inConn.to.debugHumanReadableTime;
+            outConn.depart = inConn.from.time;
+            outConn.arrival = inConn.to.time;
 
             outConn.sections = [];
             for (var j = 0; j < inConn.sections.length; j++) {
