@@ -23,12 +23,11 @@ export class CheckinComponent implements OnInit {
       'station': new FormControl('', [Validators.required])
     });
 
-    this.route.queryParams.subscribe((params) => {
+    this.route.paramMap.subscribe((params) => {
       const stationId = params.get('stationId');
 
       if (!isNullOrUndefined(stationId) && stationId.trim().length > 0) {
         this.stationControl.patchValue(stationId);
-        this.doCheckIn();
       }
     });
   }
@@ -42,7 +41,7 @@ export class CheckinComponent implements OnInit {
       if (!isNullOrUndefined(route) && route.length > 0) {
         const routeId = route[0]['route'];
         this.checkinService.checkIn(this.stationControl.value, routeId).subscribe((data: any) => {
-          this.chatService.enterChannel(data.ChatRoomRouteUrl)
+          this.chatService.enterChannel(data.RouteUrl)
             .catch((err) => {
               console.error("Error occured while joining channels, retry...", err);
               this.doCheckIn();
@@ -52,7 +51,7 @@ export class CheckinComponent implements OnInit {
               console.log('[CheckinComponent] Channel beigetreten', channel);
             });
 
-          this.chatService.enterChannel(data.ChatRoomStationUrl)
+          this.chatService.enterChannel(data.StationUrl)
             .catch((err) => {
               console.error("Error occured while joining channels, retry...", err);
               this.doCheckIn();
