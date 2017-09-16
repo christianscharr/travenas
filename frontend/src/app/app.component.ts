@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AuthService} from "./common/services/auth.service";
+import {AuthService} from "./common/services/auth/auth.service";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Component({
