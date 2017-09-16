@@ -14,6 +14,7 @@ import {AuthService} from "../common/services/auth/auth.service";
 export class PlanComponent implements OnInit {
   planForm: FormGroup;
   connectionResults$: Subject<Connection[]> = new Subject();
+  rankingArray = [];
 
   constructor(private connectionsService: ConnectionsService, private router: Router, private authService: AuthService) {
   }
@@ -37,8 +38,21 @@ export class PlanComponent implements OnInit {
     this.connectionsService.getConnections(this.startControl.value, this.endControl.value)
       .subscribe((connections: Connection[]) => {
         console.log(connections);
+        connections.map((connection) => {
+          const counter = Math.round(Math.round(connection.ranking*10)/2);
+          this.rankingArray.push(this.createArray(counter));
+        })
         this.connectionResults$.next(connections);
       });
+  }
+
+  createArray(counter) {
+    const foo = [];
+
+    for (let i = 1; i <= counter; i++) {
+      foo.push(i);
+    }
+    return foo;
   }
 
   choose(connection: Connection) {

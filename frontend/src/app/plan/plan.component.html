@@ -22,12 +22,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let connection of connectionResults">
+      <tr *ngFor="let connection of connectionResults; let i = index">
         <td>{{connection.from}}</td>
         <td>{{connection.depart|date:'short'}}</td>
         <td>{{connection.to}}</td>
         <td>{{connection.arrival|date:'short'}}</td>
-        <td>{{connection.ranking}}</td>
+
+        <span *ngFor="let counter of rankingArray[i];">
+          <span class="fa fa-star" aria-hidden="true"></span>
+        </span>
+
         <td><button type="button" class="btn btn-outline-primary" (click)="choose(connection)">Choose</button></td>
       </tr>
     </tbody>
