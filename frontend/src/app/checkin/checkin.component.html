@@ -20,5 +20,6 @@
     <input type="text" class="form-control" formControlName="station" id="station" aria-describedby="stationHelp" placeholder="Enter station id">
     <small id="stationHelp" class="form-text text-muted">Please enter the desired station id manually.</small>
   </div>
+  <div class="alert alert-danger" role="alert" *ngIf="noConnections">You have no current connections.</div>
   <button type="button" class="btn btn-primary" (click)="doCheckIn()">Check-In</button>
 </form>

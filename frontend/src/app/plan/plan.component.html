@@ -28,6 +28,7 @@
     <input type="text" class="form-control" formControlName="end" id="end" aria-describedby="endHelp" placeholder="Enter your end station">
     <small id="endHelp" class="form-text text-muted">Please enter the desired end station.</small>
   </div>
+  <div class="alert alert-danger" role="alert" *ngIf="noConnections">There are no connections for your query. Mistyped?</div>
   <button type="button" class="btn btn-primary" (click)="lookup()">Lookup Route</button>
   <!-- Modal -->
   <div id="exampleModal" class="model" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="exampleModalLabel"

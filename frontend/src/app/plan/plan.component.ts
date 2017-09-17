@@ -25,6 +25,7 @@ export class PlanComponent implements OnInit {
   connectionResults$: Subject<Connection[]> = new Subject();
   rankingArray = [];
   showNotification:boolean = false;
+  private noConnectionsFound: boolean = false;
 
   constructor(private connectionsService: ConnectionsService, private router: Router, private authService: AuthService, private checkinService: CheckinService) {
   }
@@ -55,14 +56,17 @@ export class PlanComponent implements OnInit {
   }
 
   lookup() {
+    this.noConnectionsFound = false;
     this.connectionsService.getConnections(this.startControl.value, this.endControl.value)
       .subscribe((connections: Connection[]) => {
         console.log(connections);
         connections.map((connection) => {
           const counter = Math.round(Math.round(connection.ranking*10)/2);
           this.rankingArray.push(this.createArray(counter));
-        })
+        });
         this.connectionResults$.next(connections);
+      }, (error: any) => {
+        this.noConnectionsFound = true;
       });
   }
 
@@ -93,5 +97,9 @@ export class PlanComponent implements OnInit {
 
   checkin(connection: Connection) {
 
+  }
+
+  get noConnections(){
+    return this.noConnectionsFound;
   }
 }

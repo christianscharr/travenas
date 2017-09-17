@@ -14,6 +14,7 @@ import * as ZXing from '../3rdparty/zxing.qrcodereader.min';
 })
 export class CheckinComponent implements OnInit {
   checkinForm: FormGroup;
+  noConnectionsFound: boolean = false;
 
   constructor(private checkinService: CheckinService, private route: ActivatedRoute, private router: Router) {
   }
@@ -80,6 +81,7 @@ export class CheckinComponent implements OnInit {
   }
 
   doCheckIn() {
+    this.noConnectionsFound = false;
     this.checkinService.getRouteId(this.stationControl.value).subscribe((route) => {
       if (!isNullOrUndefined(route) && route.length > 0) {
         CheckinService.ROUTE_ID = route[0]['route'];
@@ -88,8 +90,14 @@ export class CheckinComponent implements OnInit {
         this.checkinService.checkTripEnded(this.stationControl.value).subscribe((tripState: any) => {
           this.router.navigate(['ride'], {queryParams: {"status": tripState.status, "score": tripState.score}});
         });
+      } else {
+        this.noConnectionsFound = true;
       }
     });
 
+  }
+
+  get noConnections() {
+    return this.noConnectionsFound;
   }
 }
