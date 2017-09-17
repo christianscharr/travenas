@@ -22,6 +22,7 @@ COPY . .
 
 RUN cd /usr/src/app/backend && npm install
 RUN cd /usr/src/app/frontend && npm install && npm run build --prod --env=prod --aot
+RUN mkdir /usr/src/app/tmp
 
 EXPOSE 3000
 
