@@ -1,36 +1,39 @@
 <h2>Your choosen connections</h2>
 <table class="table" *ngIf="choosenConnResults$|async as choosenConnResults">
   <thead>
-    <tr>
-      <th>From</th>
-      <th>Departure</th>
-      <th>To</th>
-      <th>Arrival</th>
-    </tr>
+  <tr>
+    <th>From</th>
+    <th>Departure</th>
+    <th>To</th>
+    <th>Arrival</th>
+  </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let choosenConn of choosenConnResults; let i = index">
-      <td>{{choosenConn.fromDest}}</td>
-      <td>{{choosenConn.depart|date:'short'}}</td>
-      <td>{{choosenConn.toDest}}</td>
-      <td>{{choosenConn.arrival|date:'short'}}</td>
-    </tr>
+  <tr *ngFor="let choosenConn of choosenConnResults; let i = index">
+    <td>{{choosenConn.fromDest}}</td>
+    <td>{{choosenConn.depart|date:'short'}}</td>
+    <td>{{choosenConn.toDest}}</td>
+    <td>{{choosenConn.arrival|date:'short'}}</td>
+  </tr>
   </tbody>
 </table>
 <form [formGroup]="planForm">
   <div class="form-group">
     <label for="start">Starting Point</label>
-    <input type="text" class="form-control" formControlName="start" id="start" aria-describedby="startHelp" placeholder="Enter your start station">
+    <input type="text" class="form-control" formControlName="start" id="start" aria-describedby="startHelp"
+           placeholder="Enter your start station">
     <small id="startHelp" class="form-text text-muted">Please enter the desired start station.</small>
   </div>
   <div class="form-group">
     <label for="end">Ending Point</label>
-    <input type="text" class="form-control" formControlName="end" id="end" aria-describedby="endHelp" placeholder="Enter your end station">
+    <input type="text" class="form-control" formControlName="end" id="end" aria-describedby="endHelp"
+           placeholder="Enter your end station">
     <small id="endHelp" class="form-text text-muted">Please enter the desired end station.</small>
   </div>
   <button type="button" class="btn btn-primary" (click)="lookup()">Lookup Route</button>
   <!-- Modal -->
-  <div id="exampleModal" class="model" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="exampleModalLabel"
+  <div id="exampleModal" class="model" tabindex="-1" role="dialog" aria-hidden="true"
+       aria-labelledby="exampleModalLabel"
        *ngIf="showNotification">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -44,7 +47,8 @@
           You have successfully chosen a connection.
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="disableNotification()">OK</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="disableNotification()">OK
+          </button>
 
         </div>
       </div>
@@ -52,32 +56,33 @@
   </div>
   <table class="table" *ngIf="connectionResults$|async as connectionResults" style="margin-top: 3rem;">
     <thead>
-      <tr>
-        <th>From</th>
-        <th>Departure</th>
-        <th>To</th>
-        <th>Arrival</th>
-        <th>Rank</th>
-        <th></th>
-      </tr>
+    <tr>
+      <th>From</th>
+      <th>Departure</th>
+      <th>To</th>
+      <th>Arrival</th>
+      <th>Rank</th>
+      <th></th>
+    </tr>
     </thead>
     <tbody>
-
-      <tr *ngFor="let connection of connectionResults; let i = index">
-        <td>{{connection.from}}</td>
-        <td>{{connection.depart|date:'short'}}</td>
-        <td>{{connection.to}}</td>
-        <td>{{connection.arrival|date:'short'}}</td>
-
+    <tr *ngFor="let connection of connectionResults; let i = index">
+      <td>{{connection.from}}</td>
+      <td>{{connection.depart|date:'short'}}</td>
+      <td>{{connection.to}}</td>
+      <td>{{connection.arrival|date:'short'}}</td>
+      <td>
         <span *ngFor="let counter of rankingArray[i];">
           <span class="fa fa-star" aria-hidden="true"></span>
-
         </span>
         <span *ngIf="!rankingArray[i] || rankingArray[i].length === 0 " class="fa fa-star-o" aria-hidden="true"></span>
-
-        <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal"
-                    (click)="choose(connection)">Choose</button></td>
-      </tr>
+      </td>
+      <td>
+        <button type="submit" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal"
+                (click)="choose(connection)">Choose
+        </button>
+      </td>
+    </tr>
     </tbody>
   </table>
 </form>
