@@ -5,7 +5,6 @@ import {Subject} from "rxjs/Subject";
 import {CheckinService} from "../common/services/checkin/checkin.service";
 import {ActivatedRoute} from '@angular/router';
 import io from 'socket.io-client';
-import {environment} from "../../environments/environment";
 import {isNullOrUndefined} from "util";
 import {GameField} from "./GameField";
 import "rxjs/add/operator/debounceTime";
@@ -70,6 +69,10 @@ export class RideComponent implements OnInit, OnDestroy {
       });
 
       this.socketIO.on('message', (msg) => {
+        if (msg.room != this.stationRoom) {
+          return;
+        }
+
         this.stationMessagesControl.patchValue(this.stationMessagesControl.value + "\n"
           + '[' + msg.userId + ']: ' + msg.txt);
       });
@@ -80,6 +83,10 @@ export class RideComponent implements OnInit, OnDestroy {
       });
 
       this.socketIO.on('message', (msg) => {
+        if (msg.room != this.routeRoom) {
+          return;
+        }
+
         this.routeMessagesControl.patchValue(this.routeMessagesControl.value + "\n"
           + '[' + msg.userId + ']: ' + msg.txt);
       });
