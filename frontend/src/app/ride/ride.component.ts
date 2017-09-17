@@ -101,14 +101,16 @@ export class RideComponent implements OnInit, OnDestroy {
       this.messageRoute$.subscribe((msg) => {
         this.socketIO.emit("message", {
           txt: msg,
-          userId: userProfil.sub
+          userId: userProfil.sub,
+          room: this.routeRoom
         });
       });
 
       this.messageStation$.subscribe((msg) => {
         this.socketIO.emit("message", {
           txt: msg,
-          userId: userProfil.sub
+          userId: userProfil.sub,
+          room: this.stationRoom
         });
       });
 

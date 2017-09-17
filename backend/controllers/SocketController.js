@@ -111,7 +111,6 @@ let socketController = function (socket) {
 
     socket.on('message', function (msg) {
         console.log('[' + msg.userId + '] wrote a message "' + msg.txt + '"');
-
         io.sockets.in(msg.room).emit('message', msg);
     });
 };
