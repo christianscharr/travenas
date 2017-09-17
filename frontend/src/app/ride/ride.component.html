@@ -4,14 +4,21 @@
 <p *ngIf="tripStatus == 'finished'">
   Your trip has ended. You have a new score of {{newScore}}. Keep collecting!
 </p>
-<div class="container">
-  <div class="col-sm-4">
-
+<div *ngIf="won$|async" class="winPopup">
+  Congratulations! You have won!
+</div>
+<div class="row">
+  <div class="col-sm-6">
+    <table *ngIf="(gameField$|async) as gameField">
+      <tr *ngFor="let gameFieldRow of gameField; let posX = index">
+        <td *ngFor="let gameFieldTile of gameFieldRow; let posY = index" [style.background-color]="gameFieldTile.owner === null ? gameFieldTile.color : 'transparent'" class="gamefield" (click)="chooseField(posX, posY)"></td>
+      </tr>
+    </table>
   </div>
-  <div class="col-sm-4">
+  <div class="col-sm-6">
     <form [formGroup]="stationChatForm">
       <h4>{{stationRoom}}</h4>
-      <textarea class="form-control" name="stationMessages" id="stationMessages" formControlName="stationMessages" rows="5"></textarea>
+      <textarea class="form-control" name="stationMessages" id="stationMessages" formControlName="stationMessages" rows="10" style="font-size: 0.8rem;"></textarea>
       <div class="form-inline">
         <div class="form-group">
           <input type="text" class="form-control" formControlName="stationMessage" id="stationMessage" placeholder="Enter your message">
@@ -21,7 +28,7 @@
     </form>
     <form [formGroup]="routeChatForm" style="margin-top: 3rem;">
       <h4>{{routeRoom}}</h4>
-      <textarea class="form-control" name="routeMessages" id="routeMessages" formControlName="routeMessages" rows="5"></textarea>
+      <textarea class="form-control" name="routeMessages" id="routeMessages" formControlName="routeMessages" rows="10" style="font-size: 0.8rem;"></textarea>
       <div class="form-inline">
         <div class="form-group">
           <input type="text" class="form-control" formControlName="routeMessage" id="routeMessage" placeholder="Enter your message">

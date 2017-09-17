@@ -7,7 +7,6 @@ import {Subject} from "rxjs/Subject";
 import {AuthService} from "../common/services/auth/auth.service";
 import {CheckinService} from "../common/services/checkin/checkin.service";
 import {Observable} from "rxjs/Observable";
-import "rxjs/add/Observable/from";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/mergeMap";
 import "rxjs/add/operator/mergeAll";
