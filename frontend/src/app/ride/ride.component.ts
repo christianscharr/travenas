@@ -68,27 +68,19 @@ export class RideComponent implements OnInit, OnDestroy {
         userId: userProfil.sub
       });
 
-      this.socketIO.on('message', (msg) => {
-        if (msg.room != this.stationRoom) {
-          return;
-        }
-
-        this.stationMessagesControl.patchValue(this.stationMessagesControl.value + "\n"
-          + '[' + msg.userId + ']: ' + msg.txt);
-      });
-
       this.socketIO.emit('room', {
         room: this.routeRoom,
         userId: userProfil.sub
       });
 
       this.socketIO.on('message', (msg) => {
-        if (msg.room != this.routeRoom) {
-          return;
+        if (msg.room == this.routeRoom) {
+          this.routeMessagesControl.patchValue(this.routeMessagesControl.value + "\n"
+            + '[' + msg.userId + ']: ' + msg.txt);
+        } else if (msg.room == this.stationRoom) {
+          this.stationMessagesControl.patchValue(this.stationMessagesControl.value + "\n"
+            + '[' + msg.userId + ']: ' + msg.txt);
         }
-
-        this.routeMessagesControl.patchValue(this.routeMessagesControl.value + "\n"
-          + '[' + msg.userId + ']: ' + msg.txt);
       });
 
       this.socketIO.on('game', (msg) => {
