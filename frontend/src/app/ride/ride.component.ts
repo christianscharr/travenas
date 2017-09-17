@@ -62,7 +62,7 @@ export class RideComponent implements OnInit, OnDestroy {
       this.stationRoom = 'Station ' + CheckinService.STATION_ID;
       this.routeRoom = 'Route ' + CheckinService.ROUTE_ID;
 
-      this.socketIO = io(environment.production === false ? 'http://localhost:3000' : 'http://travenas.com');
+      this.socketIO = io('https://travenas.com');
 
       this.socketIO.emit('room', {
         room: this.stationRoom,
