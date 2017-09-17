@@ -20,11 +20,13 @@ controller.getConnection = function (from, to) {
 
                 outSec.fromStationId = inSec.from.location.stationId;
                 outSec.toStationId = inSec.to.location.stationId;
+
                 if (inSec.route) {
                     outSec.route = inSec.route.name + '|' + inSec.route.infoName + '|' + inSec.route.company;
                 } else {
                     outSec.route = inSec.from.location.stationId + "|" + inSec.from.time + "|" + inSec.to.location.stationId + "|" + inSec.to.time;
                 }
+
                 outSec.load = 0;  // TODO
 
                 outConn.sections.push(outSec);
