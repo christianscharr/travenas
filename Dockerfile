@@ -1,5 +1,8 @@
 FROM node:latest
 
+ARG PORT
+ENV PORT ${PORT:-80}
+
 ARG MYSQL_HOST
 ENV MYSQL_HOST ${MYSQL_HOST:-mysql}
 
