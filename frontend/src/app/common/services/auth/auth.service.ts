@@ -14,7 +14,7 @@ export class AuthService {
     domain: 'travenas.eu.auth0.com',
     responseType: 'token id_token',
     audience: 'https://travenas.eu.auth0.com/userinfo',
-    redirectUri: 'http://travenas.com/login',
+    redirectUri: 'https://travenas.com/login',
     scope: 'openid profile'
   });
 
@@ -70,7 +70,7 @@ export class AuthService {
     this.isAuthenticated$.next(this.isAuthenticated());
 
     // Go back to the home route
-    this.auth0.logout({returnTo: 'http://travenas.com/logout'});
+    this.auth0.logout({returnTo: 'https://travenas.com/logout'});
   }
 
   public isAuthenticated(): boolean {
