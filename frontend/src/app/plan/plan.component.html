@@ -20,13 +20,13 @@
 <form [formGroup]="planForm">
   <div class="form-group">
     <label for="start">Starting Point</label>
-    <input type="text" class="form-control" formControlName="start" id="start" aria-describedby="startHelp"
+    <input type="text" [class]="{'is-valid': (startControl.valid && startControl.dirty), 'is-invalid': (startControl.invalid && startControl.dirty), 'form-control': true}" formControlName="start" id="start" aria-describedby="startHelp"
            placeholder="Enter your start station">
     <small id="startHelp" class="form-text text-muted">Please enter the desired start station.</small>
   </div>
   <div class="form-group">
     <label for="end">Ending Point</label>
-    <input type="text" class="form-control" formControlName="end" id="end" aria-describedby="endHelp"
+    <input type="text" [class]="{'is-valid': (endControl.valid && endControl.dirty), 'is-invalid': (endControl.invalid && endControl.dirty), 'form-control': true}" formControlName="end" id="end" aria-describedby="endHelp"
            placeholder="Enter your end station">
     <small id="endHelp" class="form-text text-muted">Please enter the desired end station.</small>
   </div>
